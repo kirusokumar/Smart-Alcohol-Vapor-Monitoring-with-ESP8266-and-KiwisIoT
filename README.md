@@ -41,45 +41,6 @@ An IoT-based alcohol vapor monitoring system using the **MQ-3 Alcohol Sensor** a
 
 The sensor readings are transmitted to the KiwisIoT dashboard through Wi-Fi.
 
-## Arduino Code
-
-```cpp
-#include <KiwisIoT.h>
-
-const int alcoholSensorPin = A0;
-
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
-const char* topicId = "YOUR_TOPIC_ID";
-
-KiwisIoT kiwisiot(ssid, password, topicId);
-
-int alcoholReading = 0;
-
-void setup() {
-  Serial.begin(115200);
-
-  pinMode(alcoholSensorPin, INPUT);
-
-  kiwisiot.begin();
-
-  Serial.println("Alcohol Vapour Monitoring Started");
-}
-
-void loop() {
-  kiwisiot.run();
-
-  alcoholReading = analogRead(alcoholSensorPin);
-
-  Serial.print("Raw Sensor Reading: ");
-  Serial.println(alcoholReading);
-
-  kiwisiot.send("1", alcoholReading);
-
-  delay(2000);
-}
-```
-
 ## Working Principle
 
 1. The MQ-3 sensor responds to alcohol vapor in the surrounding air.
